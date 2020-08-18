@@ -2,7 +2,11 @@ var roleHarvester = require("role.harvester");
 var roleUpgrader = require("role.upgrader");
 var roleBuilder = require("role.builder");
 
+var popControl = require("pop.control");
+
 module.exports.loop = function () {
+  popControl.run();
+
   var tower = Game.getObjectById("TOWER_ID");
   if (tower) {
     var closestDamagedStructure = tower.pos.findClosestByRange(
