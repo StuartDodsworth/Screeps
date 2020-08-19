@@ -1,6 +1,6 @@
 var roleUpgrader = require("role.upgrader");
 var roleBuilder = require("role.builder");
-//var roleMiner = require("role.miner");
+var roleMiner = require("role.miner");
 //var roleTransporter = require("role.transporter");
 
 //var popControl = require("pop.control");
