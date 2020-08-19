@@ -7,37 +7,32 @@ var popControl = {
       }
     }
 
-    // Check harvester population
+    // Get Population numbers
     var harvesters = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "harvester"
     );
-
-    if (harvesters.length < 3) {
-      var newName = "Harvester" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "harvester" },
-      }) == OK;
-    }
-
     var upgraders = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "upgrader"
     );
-
-    if (upgraders.length < 1) {
-      var newName = "Upgrader" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "builder" },
-      });
-    }
-
     var builders = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "builder"
     );
 
-    if (builders.length < 2) {
+    // Spawn new creeps
+    if (harvesters.length < 3) {
+      var newName = "Harvester" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "harvester" },
+      });
+    } else if (upgraders.length < 1) {
+      var newName = "Upgrader" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "upgrader" },
+      });
+    } else if (builders.length < 2) {
       var newName = "Builder" + Game.time;
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
         memory: { role: "builder" },
