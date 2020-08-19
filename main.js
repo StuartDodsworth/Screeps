@@ -1,9 +1,9 @@
 var roleUpgrader = require("role.upgrader");
 var roleBuilder = require("role.builder");
-var roleMiner = require("role.miner");
-var roleTransporter = require("role.transporter");
+//var roleMiner = require("role.miner");
+//var roleTransporter = require("role.transporter");
 
-var popControl = require("pop.control");
+//var popControl = require("pop.control");
 
 module.exports.loop = function () {
   popControl.run();
