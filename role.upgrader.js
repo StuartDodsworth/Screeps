@@ -26,8 +26,7 @@ var roleUpgrader = {
           );
         },
       });
-      console.log(sources);
-      if (creep.withdraw(sources[0]) == ERR_NOT_IN_RANGE) {
+      if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
         creep.moveTo(sources[0], { visualizePathStyle: { stroke: "#ffaa00" } });
       }
     }
