@@ -28,7 +28,7 @@ var popControl = {
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, MOVE], newName, {
         memory: { role: "miner" },
       });
-    } else if (transporters.length < 1) {
+    } else if (transporters.length < 2) {
       var newName = "Transporter" + Game.time;
       Game.spawns["Spawn1"].spawnCreep(
         [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE],
