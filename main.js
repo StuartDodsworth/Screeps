@@ -26,6 +26,8 @@ module.exports.loop = function () {
   //   }
   // }
 
+  var minerCount = _.filter(Game.creeps, (creep) => creep.memory.role == "miner").length;
+
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
     switch (creep.memory.role) {
@@ -33,10 +35,10 @@ module.exports.loop = function () {
         roleMiner.run(creep);
         break;
       case "upgrader":
-        roleUpgrader.run(creep);
+        if (minerCount >= 3) {roleUpgrader.run(creep);}
         break;
       case "builder":
-        roleBuilder.run(creep);
+        if (minerCount >= 3) {roleBuilder.run(creep);}
         break;
       case "transporter":
         roleTransporter.run(creep);

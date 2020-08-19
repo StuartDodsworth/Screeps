@@ -28,7 +28,7 @@ var popControl = {
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, MOVE], newName, {
         memory: { role: "miner" },
       });
-    } else if (transporters.length < 2) {
+    } else if (transporters.length < 1) {
       var newName = "Transporter" + Game.time;
       Game.spawns["Spawn1"].spawnCreep(
         [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE],
@@ -42,7 +42,7 @@ var popControl = {
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
         memory: { role: "upgrader" },
       });
-    } else if (builders.length < 2) {
+    } else if (builders.length < 3) {
       var newName = "Builder" + Game.time;
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
         memory: { role: "builder" },
