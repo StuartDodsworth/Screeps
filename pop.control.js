@@ -7,18 +7,21 @@ var popControl = {
       }
     }
 
-    var harvesters = _.filter(
+    var workers = _.filter(
       Game.creeps,
-      (creep) => creep.memory.role == "harvester"
+      (creep) => creep.memory.role == "worker"
     );
-    console.log("Harvesters: " + harvesters.length);
+    console.log("Workers: " + workers.length);
 
-    if (harvesters.length < 2) {
-      var newName = "Harvester" + Game.time;
-      console.log("Spawning new harvester: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "harvester" },
-      });
+    if (workers.length < 3) {
+      var newName = "Worker" + Game.time;
+      if (
+        Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+          memory: { role: "worker" },
+        }) == OK
+      ) {
+        console.log("Spawning new worker: " + newName);
+      }
     }
 
     if (Game.spawns["Spawn1"].spawning) {
