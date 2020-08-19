@@ -6,7 +6,7 @@ var roleBuilder = require("role.builder");
 //var popControl = require("pop.control");
 
 module.exports.loop = function () {
-  popControl.run();
+  //popControl.run();
 
   var tower = Game.getObjectById("TOWER_ID");
   if (tower) {
