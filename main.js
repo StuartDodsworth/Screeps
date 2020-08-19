@@ -1,6 +1,7 @@
-var roleHarvester = require("role.harvester");
 var roleUpgrader = require("role.upgrader");
 var roleBuilder = require("role.builder");
+var roleMiner = require("role.miner");
+var roleTransporter = require("role.transporter");
 
 var popControl = require("pop.control");
 
@@ -27,14 +28,21 @@ module.exports.loop = function () {
 
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
-    if (creep.memory.role == "harvester") {
-      roleHarvester.run(creep);
-    }
-    if (creep.memory.role == "upgrader") {
-      roleUpgrader.run(creep);
-    }
-    if (creep.memory.role == "builder") {
-      roleBuilder.run(creep);
+    switch (creep.memory.role) {
+      case "miner":
+        roleMiner.run(creep);
+        break;
+      case "upgrader":
+        roleUpgrader.run(creep);
+        break;
+      case "builder":
+        roleBuilder.run(creep);
+        break;
+      case "transporter":
+        roleTransporter.run(creep);
+        break;
+      default:
+        break;
     }
   }
 };

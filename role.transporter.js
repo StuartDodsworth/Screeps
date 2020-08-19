@@ -27,8 +27,12 @@ var roleTransporter = {
             creep.moveTo(targets[0], {
               visualizePathStyle: { stroke: "#ffffff" },
             });
+            break;
           case OK:
             creep.memory.transportStatus == "collecting";
+            break;
+          default:
+            break;
         }
       }
     }
