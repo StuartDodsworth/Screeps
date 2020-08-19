@@ -18,14 +18,15 @@ var roleUpgrader = {
       }
     } else {
       var sources = creep.room.find(FIND_STRUCTURES, {
-        filter: (structure) => {
+        filter: (source) => {
           return (
-            (structure.structureType == STRUCTURE_EXTENSION ||
-              structure.structureType == STRUCTURE_SPAWN) &&
-            structure.store[RESOURCE_ENERGY] > 0
+            (source.structureType == STRUCTURE_EXTENSION ||
+              source.structureType == STRUCTURE_SPAWN) &&
+            source.store[RESOURCE_ENERGY] > 0
           );
         },
       });
+      console.log(sources);
       if (creep.withdraw(sources[0]) == ERR_NOT_IN_RANGE) {
         creep.moveTo(sources[0], { visualizePathStyle: { stroke: "#ffaa00" } });
       }

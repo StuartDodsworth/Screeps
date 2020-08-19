@@ -21,11 +21,11 @@ var roleBuilder = {
       }
     } else {
       var sources = creep.room.find(FIND_STRUCTURES, {
-        filter: (structure) => {
+        filter: (source) => {
           return (
-            (structure.structureType == STRUCTURE_EXTENSION ||
-              structure.structureType == STRUCTURE_SPAWN) &&
-            structure.store[RESOURCE_ENERGY] > 0
+            (source.structureType == STRUCTURE_EXTENSION ||
+              source.structureType == STRUCTURE_SPAWN) &&
+            source.store[RESOURCE_ENERGY] > 0
           );
         },
       });
