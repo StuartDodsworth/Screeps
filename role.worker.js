@@ -80,7 +80,7 @@ var roleWorker = {
    */
   upgrade: function (creep) {
     if (creep.memory.job == "none" || creep.memory.job == "upgrading") {
-      //console.log("Worker is upgrading");
+      console.log("Worker is upgrading");
       creep.memory.job = "upgrading";
       if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
         creep.moveTo(creep.room.controller, {

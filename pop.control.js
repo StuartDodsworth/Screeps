@@ -7,21 +7,41 @@ var popControl = {
       }
     }
 
-    var workers = _.filter(
+    // Check harvester population
+    var harvesters = _.filter(
       Game.creeps,
-      (creep) => creep.memory.role == "worker"
+      (creep) => creep.memory.role == "harvester"
     );
-    console.log("Workers: " + workers.length);
 
-    if (workers.length < 3) {
-      var newName = "Worker" + Game.time;
-      if (
-        Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-          memory: { role: "worker" },
-        }) == OK
-      ) {
-        console.log("Spawning new worker: " + newName);
-      }
+    if (harvesters.length < 3) {
+      var newName = "Harvester" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "harvester" },
+      }) == OK;
+    }
+
+    var upgraders = _.filter(
+      Game.creeps,
+      (creep) => creep.memory.role == "upgrader"
+    );
+
+    if (upgraders.length < 1) {
+      var newName = "Upgrader" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "builder" },
+      });
+    }
+
+    var builders = _.filter(
+      Game.creeps,
+      (creep) => creep.memory.role == "builder"
+    );
+
+    if (builders.length < 2) {
+      var newName = "Builder" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "builder" },
+      });
     }
 
     if (Game.spawns["Spawn1"].spawning) {
