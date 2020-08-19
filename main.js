@@ -3,10 +3,10 @@ var roleBuilder = require("role.builder");
 var roleMiner = require("role.miner");
 var roleTransporter = require("role.transporter");
 
-//var popControl = require("pop.control");
+var popControl = require("pop.control");
 
 module.exports.loop = function () {
-  //popControl.run();
+  popControl.run();
 
   var tower = Game.getObjectById("TOWER_ID");
   if (tower) {
