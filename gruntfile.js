@@ -27,13 +27,13 @@ module.exports = function (grunt) {
         ptr: ptr,
       },
       dist: {
-        src: ["src/" + branch + "/*.js"],
+        src: ["dist/" + branch + "/*.js"],
       },
     },
 
     // Remove all files from the dist folder
     clean: {
-      dist: ["dist" + branch],
+      dist: ["dist/" + branch],
     },
 
     // Copy all source files into the dist folder, flattening the folder structure by converting path delimiters to underscores

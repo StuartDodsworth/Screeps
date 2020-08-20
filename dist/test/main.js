@@ -1,3 +1,5 @@
+require("role_harvester");
+
 module.exports.loop = function () {
-  console.log("test");
+  console.log("taste");
 };
