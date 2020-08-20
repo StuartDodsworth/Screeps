@@ -1,5 +1,6 @@
 var roleHarvester = require("role_harvester");
 var roleUpgrader = require("role_upgrader");
+var roleBuilder = require("role_builder");
 
 var population = require("population");
 

@@ -25,6 +25,7 @@ var roleHarvester = {
         }
       }
     }
+    creep.pos.createConstructionSite(STRUCTURE_ROAD);
   },
 };
 
