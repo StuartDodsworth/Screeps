@@ -1,3 +1,5 @@
+require("prototype_spawn")();
+
 var popControl = {
   minPop: {
     harvester: 10,
@@ -37,32 +39,25 @@ var popControl = {
       (creep) => creep.memory.role == "builder"
     );
 
+    var energy = Game.spawns["Spawn1"].room.energyCapacityAvailable;
+
     // Spawn new creeps
     if (this.currPop.harvester < this.minPop.harvester) {
-      var newName = "Harvester" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, MOVE], newName, {
-        memory: { role: "harvester" },
-      });
+      if (
+        Game.spawns["Spawn1"].createCustomeCreep(energy, "harvester") ==
+          ERR_NOT_ENOUGH_ENERGY &&
+        this.currPop.harvester == 0
+      ) {
+        Game.spawns["Spawn1"].createCustomeCreep(200, "harvester");
+      }
     } else if (this.currPop.upgrader < this.minPop.upgrader) {
-      var newName = "Upgrader" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "upgrader" },
-      });
+      Game.spawns["Spawn1"].createCustomeCreep(energy, "upgrader");
     } else if (this.currPop.builder < this.minPop.builder) {
-      var newName = "Builder" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "builder" },
-      });
+      Game.spawns["Spawn1"].createCustomeCreep(energy, "builder");
     } else if (this.currPop.repairer < this.minPop.repairer) {
-      var newName = "Repairer" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "repairer" },
-      });
+      Game.spawns["Spawn1"].createCustomeCreep(energy, "repairer");
     } else {
-      var newName = "Builder" + Game.time;
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-        memory: { role: "builder" },
-      });
+      Game.spawns["Spawn1"].createCustomeCreep(energy, "builder");
     }
 
     if (Game.spawns["Spawn1"].spawning) {
