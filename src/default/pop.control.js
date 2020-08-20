@@ -1,3 +1,4 @@
+require("prototype_spawn")();
 var popControl = {
   run: function () {
     for (var name in Memory.creeps) {
