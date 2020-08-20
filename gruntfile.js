@@ -2,6 +2,8 @@
 // npm install -g grunt-cli
 
 module.exports = function (grunt) {
+  require("time-grunt")(grunt);
+
   var config = require("./.screeps.json");
 
   var branch = grunt.option("branch") || config.branch;
@@ -9,9 +11,13 @@ module.exports = function (grunt) {
   var password = grunt.option("password") || config.password;
   var ptr = grunt.option("ptr") || config.ptr;
 
+  var private_directory =
+    grunt.option("private_directory") || config.private_directory;
+
   grunt.loadNpmTasks("grunt-screeps");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-rsync");
 
   var currentdate = new Date();
 
@@ -55,7 +61,24 @@ module.exports = function (grunt) {
         ],
       },
     },
+
+    // Copy files to the folder the client uses to sync to the private server
+    // Use rsync so the client only uploads the changed files
+    rsync: {
+      options: {
+        args: ["--verbose", "--checksum"],
+        exclude: [".git"],
+        recursive: true,
+      },
+      private: {
+        options: {
+          src: "./dist/" + branch + "/",
+          dest: private_directory,
+        },
+      },
+    },
   });
 
   grunt.registerTask("default", ["clean", "copy:screeps", "screeps"]);
+  grunt.registerTask("private", ["clean", "copy:screeps", "rsync:private"]);
 };
