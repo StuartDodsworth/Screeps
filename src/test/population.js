@@ -20,31 +20,45 @@ var popControl = {
     }
 
     // Get Population numbers
-    this.currPop.harvesters = _.sum(
+    this.currPop.harvester = _.sum(
       Game.creeps,
       (creep) => creep.memory.role == "harvester"
     );
-    this.currPop.upgraders = _.sum(
+    this.currPop.upgrader = _.sum(
       Game.creeps,
       (creep) => creep.memory.role == "upgrader"
     );
-    this.currPop.builders = _.sum(
+    this.currPop.builder = _.sum(
+      Game.creeps,
+      (creep) => creep.memory.role == "builder"
+    );
+    this.currPop.repairer = _.sum(
       Game.creeps,
       (creep) => creep.memory.role == "builder"
     );
 
     // Spawn new creeps
-    if (this.currPop.harvesters < this.minPop.harvester) {
+    if (this.currPop.harvester < this.minPop.harvester) {
       var newName = "Harvester" + Game.time;
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, MOVE], newName, {
         memory: { role: "harvester" },
       });
-    } else if (this.currPop.upgraders < this.minPop.upgrader) {
+    } else if (this.currPop.upgrader < this.minPop.upgrader) {
       var newName = "Upgrader" + Game.time;
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
         memory: { role: "upgrader" },
       });
-    } else if (this.currPop.builders < this.minPop.builder) {
+    } else if (this.currPop.builder < this.minPop.builder) {
+      var newName = "Builder" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "builder" },
+      });
+    } else if (this.currPop.repairer < this.minPop.repairer) {
+      var newName = "Repairer" + Game.time;
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
+        memory: { role: "repairer" },
+      });
+    } else {
       var newName = "Builder" + Game.time;
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
         memory: { role: "builder" },

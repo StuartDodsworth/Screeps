@@ -1,6 +1,6 @@
-var roleUpgrader = require("role_upgrader");
+var roleBuilder = require("role_builder");
 
-var roleBuilder = {
+var roleRepairer = {
   /** @param {Creep} creep **/
   run: function (creep) {
     if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
@@ -13,15 +13,15 @@ var roleBuilder = {
     }
 
     if (creep.memory.working) {
-      var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+      var target = creep.pos.findClosestByPath(FIND_STRUCTURES);
       if (target != undefined) {
-        if (creep.build(target) == ERR_NOT_IN_RANGE) {
+        if (creep.repair(target) == ERR_NOT_IN_RANGE) {
           creep.moveTo(target, {
             visualizePathStyle: { stroke: "#ffffff" },
           });
         }
       } else {
-        roleUpgrader.run(creep);
+        roleBuilder.run(creep);
       }
     } else {
       var sources = creep.pos.findClosestByPath(FIND_SOURCES);
@@ -32,4 +32,4 @@ var roleBuilder = {
   },
 };
 
-module.exports = roleBuilder;
+module.exports = roleRepairer;

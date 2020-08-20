@@ -1,6 +1,7 @@
 var roleHarvester = require("role_harvester");
 var roleUpgrader = require("role_upgrader");
 var roleBuilder = require("role_builder");
+var roleRepairer = require("role_repairer");
 
 var population = require("population");
 
@@ -17,6 +18,9 @@ module.exports.loop = function () {
         roleUpgrader.run(creep);
         break;
       case "builder":
+        roleBuilder.run(creep);
+        break;
+      case "repairer":
         roleBuilder.run(creep);
         break;
       default:
