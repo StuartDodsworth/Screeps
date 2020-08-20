@@ -14,7 +14,7 @@ var roleRepairer = {
 
     if (creep.memory.working) {
       var target = creep.pos.findClosestByPath(FIND_STRUCTURES);
-      if (targets.length) {
+      if (target != undefined) {
         if (creep.repair(target) == ERR_NOT_IN_RANGE) {
           creep.moveTo(target, {
             visualizePathStyle: { stroke: "#ffffff" },
