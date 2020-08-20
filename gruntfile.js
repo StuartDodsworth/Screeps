@@ -1,3 +1,6 @@
+// if unable to run, make sure you have run
+// npm install -g grunt-cli
+
 module.exports = function (grunt) {
   var config = require("./.screeps.json");
 
