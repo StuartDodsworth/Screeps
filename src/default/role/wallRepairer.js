@@ -17,8 +17,9 @@ var roleRepairer = {
 			if (creep.memory.target == undefined) {
 				var walls = creep.room.find(FIND_STRUCTURES, {
 					filter: (s) =>
-						s.structureType == STRUCTURE_WALL ||
-						s.structureType == STRUCTURE_RAMPART,
+						(s.structureType == STRUCTURE_WALL ||
+							s.structureType == STRUCTURE_RAMPART) &&
+						s.hits < s.hitsMax,
 				});
 				//sorts walls by building progress
 				walls = walls.sort(function (a, b) {
