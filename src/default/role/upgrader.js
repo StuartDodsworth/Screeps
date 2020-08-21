@@ -18,9 +18,13 @@ var roleUpgrader = {
           });
         }
       } else {
-        creep.moveTo(27,31, {
-          visualizePathStyle: { stroke: "#ffffff" },
-        });
+        if (creep.pos.isNearTo(27,31)){
+          creep.memory.isClear = true;
+        } else {
+          creep.moveTo(27,31, {
+            visualizePathStyle: { stroke: "#ffffff" },
+          });
+        }
       }
     } else {
       creep.memory.isClear = false;
