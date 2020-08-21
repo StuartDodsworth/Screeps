@@ -64,7 +64,7 @@ var popControl = {
       Game.creeps,
       (creep) => creep.memory.role == "repairer"
     );
-    this.currPop.repairer = _.sum(
+    this.currPop.wallRepairer = _.sum(
       Game.creeps,
       (creep) => creep.memory.role == "wallRepairer"
     );
