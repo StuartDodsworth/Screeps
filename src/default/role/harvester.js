@@ -1,3 +1,4 @@
+var roleUpgrader = require("role_upgrader");
 var roleHarvester = {
   /** @param {Creep} creep **/
   run: function (creep) {
@@ -24,6 +25,8 @@ var roleHarvester = {
             visualizePathStyle: { stroke: "#ffffff" },
           });
         }
+      } else {
+        roleUpgrader.run(creep);
       }
       creep.memory.working = creep.store[RESOURCE_ENERGY] == 0;
     }
