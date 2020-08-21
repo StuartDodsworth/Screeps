@@ -27,7 +27,10 @@ var roleRepairer = {
 				});
 				creep.memory.target = walls[0].id;
 			}
-			if (creep.memory.target != undefined) {
+			if (
+				creep.memory.target != undefined &&
+				Game.getObjectById(creep.memory.target) != undefined
+			) {
 				if (
 					Game.getObjectById(creep.memory.target).hits <
 					Game.getObjectById(creep.memory.target).hitsMax

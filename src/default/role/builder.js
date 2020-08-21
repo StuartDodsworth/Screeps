@@ -21,18 +21,17 @@ var roleBuilder = {
 			if (target == undefined) {
 				var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
 			}
-			if (target != undefined) {
+			if (target != undefined && creep.memory.wallID == undefined) {
+				var buildPos =
+					target.structureType == STRUCTURE_RAMPART ||
+					target.structureType == STRUCTURE_WALL
+						? target.pos
+						: undefined;
 				var buildStatus = creep.build(target);
 				if (buildStatus == ERR_NOT_IN_RANGE) {
 					creep.moveTo(target, {
 						visualizePathStyle: { stroke: "#ffffff" },
 					});
-				} else if (
-					buildStatus == OK &&
-					(target.structureType == STRUCTURE_RAMPART ||
-						target.structureType == STRUCTURE_WALL)
-				) {
-					creep.repair(target);
 				}
 			} else {
 				roleUpgrader.run(creep);
