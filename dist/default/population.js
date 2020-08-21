@@ -6,12 +6,14 @@ var popControl = {
     upgrader: 2,
     builder: 2,
     repairer: 2,
+    wallRepairer: 2,
   },
   currPop: {
     harvester: 0,
     upgrader: 0,
     builder: 0,
     repairer: 0,
+    wallRepairer: 0,
   },
   populationLimit: 20,
   currPopulation: 0,
@@ -26,13 +28,15 @@ var popControl = {
       this.minPop.harvester = 10;
       this.minPop.upgrader = 3;
       this.minPop.builder = 3;
-      this.minPop.repairer = 3;
+      this.minPop.repairer = 2;
+      this.minPop.wallRepairer = 2;
       this.populationLimit = 20;
     } else {
       this.minPop.harvester = 5;
       this.minPop.upgrader = 2;
       this.minPop.builder = 2;
       this.minPop.repairer = 2;
+      this.minPop.wallRepairer = 2;
       this.populationLimit = 15;
     }
 
@@ -59,6 +63,10 @@ var popControl = {
     this.currPop.repairer = _.sum(
       Game.creeps,
       (creep) => creep.memory.role == "repairer"
+    );
+    this.currPop.repairer = _.sum(
+      Game.creeps,
+      (creep) => creep.memory.role == "wallRepairer"
     );
     this.currPopulation = _.sum(Game.creeps, (creep) => 1 == 1);
     var energy = Game.spawns["Spawn1"].room.energyCapacityAvailable;
@@ -91,6 +99,12 @@ var popControl = {
           energy,
           "Builder" + Game.time,
           "builder"
+        );
+      } else if (this.currPop.wallRepairer < this.minPop.wallRepairer) {
+        Game.spawns["Spawn1"].spawnCustomCreep(
+          energy,
+          "WallRepairer" + Game.time,
+          "wallRepairer"
         );
       } else if (this.currPop.repairer < this.minPop.repairer) {
         Game.spawns["Spawn1"].spawnCustomCreep(

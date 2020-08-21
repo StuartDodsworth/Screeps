@@ -13,9 +13,12 @@ var roleRepairer = {
     }
 
     if (creep.memory.working) {
-      var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (t) => t.structureType != STRUCTURE_WALL || t.structureType != STRUCTURE_RAMPART
+      var walls = creep.room.find(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART
       });
+      //sorts walls by building progress
+      walls = walls.sort(function(a,b) {return (a.hits > b.hits) ? 1 : ((b.hits > a.hits) ? -1 : 0);} );
+      var target = walls[0];
       if (target != undefined) {
         if (creep.repair(target) == ERR_NOT_IN_RANGE) {
           creep.moveTo(target, {
