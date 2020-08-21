@@ -22,6 +22,9 @@ var roleUpgrader = {
 			} else {
 				if (creep.pos.isNearTo(27, 31)) {
 					creep.memory.isClear = true;
+					creep.moveTo(creep.room.controller, {
+						visualizePathStyle: { stroke: "#ffffff" },
+					});
 				} else {
 					creep.memory.isClear = false;
 					creep.moveTo(27, 31, {

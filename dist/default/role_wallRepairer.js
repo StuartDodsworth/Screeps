@@ -10,7 +10,7 @@ var roleRepairer = {
 		}
 		if (!creep.memory.working && creep.store.getFreeCapacity() == 0) {
 			creep.memory.working = true;
-			creep.say("🚧 build");
+			creep.say("🚧 repair");
 		}
 
 		if (creep.memory.working) {
