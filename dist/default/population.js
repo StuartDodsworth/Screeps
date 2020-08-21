@@ -21,7 +21,7 @@ var popControl = {
         Game.spawns["Spawn1"].room.find(FIND_STRUCTURES, {
           filter: (s) => s.structureType == STRUCTURE_EXTENSION,
         })
-      ) < 5
+      ) < 2
     ) {
       this.minPop.harvester = 10;
       this.minPop.upgrader = 3;
@@ -60,7 +60,7 @@ var popControl = {
       Game.creeps,
       (creep) => creep.memory.role == "repairer"
     );
-
+    this.currPopulation = _.sum(Game.creeps);
     var energy = Game.spawns["Spawn1"].room.energyCapacityAvailable;
 
     // Spawn new creeps
