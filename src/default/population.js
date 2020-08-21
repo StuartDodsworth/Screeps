@@ -60,7 +60,7 @@ var popControl = {
       Game.creeps,
       (creep) => creep.memory.role == "repairer"
     );
-    this.currPopulation = _.sum(Game.creeps);
+    this.currPopulation = _.sum(Game.creeps, (creep) => 1 == 1);
     var energy = Game.spawns["Spawn1"].room.energyCapacityAvailable;
 
     // Spawn new creeps
