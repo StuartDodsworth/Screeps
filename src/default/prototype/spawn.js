@@ -18,6 +18,8 @@ module.exports = function () {
     }
 
     // create creep with the created body and the given role
-    return this.spawnCreep(body, creepName, { memory: { role: roleName } });
+    return this.spawnCreep(body, creepName, {
+      memory: { role: roleName, working: false },
+    });
   };
 };

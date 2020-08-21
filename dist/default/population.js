@@ -13,6 +13,8 @@ var popControl = {
     builder: 0,
     repairer: 0,
   },
+  populationLimit: 20,
+  currPopulation: 0,
   run: function () {
     if (
       _.sum(
@@ -55,47 +57,48 @@ var popControl = {
     var energy = Game.spawns["Spawn1"].room.energyCapacityAvailable;
 
     // Spawn new creeps
-    if (this.currPop.harvester < this.minPop.harvester) {
-      if (
+    if (this.currPopulation < this.populationLimit) {
+      if (this.currPop.harvester < this.minPop.harvester) {
+        if (
+          Game.spawns["Spawn1"].spawnCustomCreep(
+            energy,
+            "Harvester" + Game.time,
+            "harvester"
+          ) == ERR_NOT_ENOUGH_ENERGY &&
+          this.currPop.harvester == 0
+        ) {
+          Game.spawns["Spawn1"].spawnCustomCreep(
+            200,
+            "Harvester" + Game.time,
+            "harvester"
+          );
+        }
+      } else if (this.currPop.upgrader < this.minPop.upgrader) {
         Game.spawns["Spawn1"].spawnCustomCreep(
           energy,
-          "Harvester" + Game.time,
-          "harvester"
-        ) == ERR_NOT_ENOUGH_ENERGY &&
-        this.currPop.harvester == 0
-      ) {
+          "Upgrader" + Game.time,
+          "upgrader"
+        );
+      } else if (this.currPop.builder < this.minPop.builder) {
         Game.spawns["Spawn1"].spawnCustomCreep(
-          200,
-          "Harvester" + Game.time,
-          "harvester"
+          energy,
+          "Builder" + Game.time,
+          "builder"
+        );
+      } else if (this.currPop.repairer < this.minPop.repairer) {
+        Game.spawns["Spawn1"].spawnCustomCreep(
+          energy,
+          "Repairer" + Game.time,
+          "repairer"
+        );
+      } else {
+        Game.spawns["Spawn1"].spawnCustomCreep(
+          energy,
+          "Builder" + Game.time,
+          "builder"
         );
       }
-    } else if (this.currPop.upgrader < this.minPop.upgrader) {
-      Game.spawns["Spawn1"].spawnCustomCreep(
-        energy,
-        "Upgrader" + Game.time,
-        "upgrader"
-      );
-    } else if (this.currPop.builder < this.minPop.builder) {
-      Game.spawns["Spawn1"].spawnCustomCreep(
-        energy,
-        "Builder" + Game.time,
-        "builder"
-      );
-    } else if (this.currPop.repairer < this.minPop.repairer) {
-      Game.spawns["Spawn1"].spawnCustomCreep(
-        energy,
-        "Repairer" + Game.time,
-        "repairer"
-      );
-    } else {
-      Game.spawns["Spawn1"].spawnCustomCreep(
-        energy,
-        "Builder" + Game.time,
-        "builder"
-      );
     }
-
     if (Game.spawns["Spawn1"].spawning) {
       var spawningCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name];
       Game.spawns["Spawn1"].room.visual.text(
