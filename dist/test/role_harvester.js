@@ -1,7 +1,10 @@
 var roleHarvester = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    if (creep.store[RESOURCE_ENERGY] == 0 || creep.memory.working == true) {
+    if (
+      (creep.store[RESOURCE_ENERGY] == 0 || creep.memory.working == true) &&
+      creep.store.getFreeCapacity() != 0
+    ) {
       creep.memory.working = true;
       var sources = creep.pos.findClosestByPath(FIND_SOURCES);
       if (creep.harvest(sources) == ERR_NOT_IN_RANGE) {
@@ -27,7 +30,6 @@ var roleHarvester = {
         }
       }
     }
-    creep.pos.createConstructionSite(STRUCTURE_ROAD);
   },
 };
 

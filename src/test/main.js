@@ -8,6 +8,20 @@ var population = require("population");
 module.exports.loop = function () {
   population.run();
 
+  var room = Game.spawns["Spawn1"].room;
+  // var sources = room.find(FIND_SOURCES);
+
+  // for (let i = 0; i < sources.length; ++i) {
+  //   let source = sources[i];
+  //   let path = source.pos.findPathTo(Game.spawns["Spawn1"], {
+  //     ignoreCreeps: true,
+  //   });
+
+  //   for (let j = 0; j < path.length; ++j) {
+  //     room.createConstructionSite(path[j].x, path[j].y, STRUCTURE_ROAD);
+  //   }
+  // }
+
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
     switch (creep.memory.role) {

@@ -2,10 +2,10 @@ require("prototype_spawn")();
 
 var popControl = {
   minPop: {
-    harvester: 10,
-    upgrader: 3,
-    builder: 3,
-    repairer: 3,
+    harvester: 5,
+    upgrader: 2,
+    builder: 2,
+    repairer: 2,
   },
   currPop: {
     harvester: 0,
