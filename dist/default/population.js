@@ -27,6 +27,13 @@ var popControl = {
       this.minPop.upgrader = 3;
       this.minPop.builder = 3;
       this.minPop.repairer = 3;
+      this.populationLimit = 20;
+    } else {
+      this.minPop.harvester = 5;
+      this.minPop.upgrader = 2;
+      this.minPop.builder = 2;
+      this.minPop.repairer = 2;
+      this.populationLimit = 15;
     }
 
     for (var name in Memory.creeps) {
@@ -51,7 +58,7 @@ var popControl = {
     );
     this.currPop.repairer = _.sum(
       Game.creeps,
-      (creep) => creep.memory.role == "builder"
+      (creep) => creep.memory.role == "repairer"
     );
 
     var energy = Game.spawns["Spawn1"].room.energyCapacityAvailable;
