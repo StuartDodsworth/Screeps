@@ -1,36 +1,37 @@
+var roleUpgrader = require("role_upgrader");
+
 var roleBuilder = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
-      creep.memory.building = false;
+    if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
+      creep.memory.working = false;
       creep.say("🔄 harvest");
     }
-    if (!creep.memory.building && creep.store.getFreeCapacity() == 0) {
-      creep.memory.building = true;
+    if (!creep.memory.working && creep.store.getFreeCapacity() == 0) {
+      creep.memory.working = true;
       creep.say("🚧 build");
     }
 
-    if (creep.memory.building) {
-      var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-      if (targets.length) {
-        if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(targets[0], {
+    if (creep.memory.working) {
+      var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+        filter: (s) => s.structureType == STRUCTURE_EXTENSION,
+      });
+      if (target == undefined) {
+        var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+      }
+      if (target != undefined) {
+        if (creep.build(target) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(target, {
             visualizePathStyle: { stroke: "#ffffff" },
           });
         }
+      } else {
+        roleUpgrader.run(creep);
       }
     } else {
-      var sources = creep.room.find(FIND_STRUCTURES, {
-        filter: (source) => {
-          return (
-            (source.structureType == STRUCTURE_EXTENSION ||
-              source.structureType == STRUCTURE_SPAWN) &&
-            source.store[RESOURCE_ENERGY] > 0
-          );
-        },
-      });
-      if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(sources[0], { visualizePathStyle: { stroke: "#ffaa00" } });
+      var sources = creep.pos.findClosestByPath(FIND_SOURCES);
+      if (creep.harvest(sources) == ERR_NOT_IN_RANGE) {
+        creep.moveTo(sources, { visualizePathStyle: { stroke: "#ffaa00" } });
       }
     }
   },

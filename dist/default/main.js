@@ -1,54 +1,36 @@
+var roleHarvester = require("role_harvester");
 var roleUpgrader = require("role_upgrader");
 var roleBuilder = require("role_builder");
-var roleMiner = require("role_miner");
-var roleTransporter = require("role_transporter");
+var roleRepairer = require("role_repairer");
 
-var popControl = require("pop.control");
+var population = require("population");
 
 module.exports.loop = function () {
-  popControl.run();
+  population.run();
 
-  // var tower = Game.getObjectById("TOWER_ID");
-  // if (tower) {
-  //   var closestDamagedStructure = tower.pos.findClosestByRange(
-  //     FIND_STRUCTURES,
-  //     {
-  //       filter: (structure) => structure.hits < structure.hitsMax,
-  //     }
-  //   );
-  //   if (closestDamagedStructure) {
-  //     tower.repair(closestDamagedStructure);
-  //   }
+  // var closestSource = Game.spawns["Spawn1"].pos.findClosestByPath(FIND_SOURCES);
+  // let path = closestSource.pos.findPathTo(Game.spawns["Spawn1"], {
+  //   ignoreCreeps: true,
+  // });
 
-  //   var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-  //   if (closestHostile) {
-  //     tower.attack(closestHostile);
-  //   }
+  // for (let j = 0; j < path.length; ++j) {
+  //   room.createConstructionSite(path[j].x, path[j].y, STRUCTURE_ROAD);
   // }
-
-  var minerCount = _.filter(
-    Game.creeps,
-    (creep) => creep.memory.role == "miner"
-  ).length;
 
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
     switch (creep.memory.role) {
-      case "miner":
-        roleMiner.run(creep);
+      case "harvester":
+        roleHarvester.run(creep);
         break;
       case "upgrader":
-        if (minerCount >= 3) {
-          roleUpgrader.run(creep);
-        }
+        roleUpgrader.run(creep);
         break;
       case "builder":
-        if (minerCount >= 3) {
-          roleBuilder.run(creep);
-        }
+        roleBuilder.run(creep);
         break;
-      case "transporter":
-        roleTransporter.run(creep);
+      case "repairer":
+        roleBuilder.run(creep);
         break;
       default:
         break;
