@@ -14,6 +14,19 @@ var popControl = {
     repairer: 0,
   },
   run: function () {
+    if (
+      _.sum(
+        Game.spawns["Spawn1"].room.find(FIND_STRUCTURES, {
+          filter: (s) => s.structureType == STRUCTURE_EXTENSION,
+        })
+      ) < 5
+    ) {
+      this.minPop.harvester = 10;
+      this.minPop.upgrader = 3;
+      this.minPop.builder = 3;
+      this.minPop.repairer = 3;
+    }
+
     for (var name in Memory.creeps) {
       if (!Game.creeps[name]) {
         delete Memory.creeps[name];
