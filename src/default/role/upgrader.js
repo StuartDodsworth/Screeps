@@ -11,12 +11,19 @@ var roleUpgrader = {
     }
 
     if (creep.memory.working) {
-      if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller, {
+      if (creep.memory.isClear){
+        if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(creep.room.controller, {
+            visualizePathStyle: { stroke: "#ffffff" },
+          });
+        }
+      } else {
+        creep.moveTo(27,31, {
           visualizePathStyle: { stroke: "#ffffff" },
         });
       }
     } else {
+      creep.memory.isClear = false;
       var sources = creep.pos.findClosestByPath(FIND_SOURCES);
       if (creep.harvest(sources) == ERR_NOT_IN_RANGE) {
         creep.moveTo(sources, { visualizePathStyle: { stroke: "#ffaa00" } });
