@@ -1,17 +1,13 @@
 var roleHarvester = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    if (
-      (creep.store[RESOURCE_ENERGY] == 0 || creep.memory.working == true) &&
-      creep.store.getFreeCapacity() != 0
-    ) {
-      creep.memory.working = true;
+    if (creep.memory.working == true) {
       var sources = creep.pos.findClosestByPath(FIND_SOURCES);
       if (creep.harvest(sources) == ERR_NOT_IN_RANGE) {
         creep.moveTo(sources, { visualizePathStyle: { stroke: "#ffaa00" } });
       }
+      creep.memory.working = creep.store.getFreeCapacity() != 0;
     } else {
-      creep.memory.working == false;
       var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (structure) => {
           return (
@@ -29,6 +25,7 @@ var roleHarvester = {
           });
         }
       }
+      creep.memory.working = creep.store[RESOURCE_ENERGY] == 0;
     }
   },
 };
