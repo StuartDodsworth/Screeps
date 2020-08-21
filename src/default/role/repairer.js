@@ -26,7 +26,6 @@ var roleRepairer = {
 					});
 				}
 			} else {
-				console.log("Repairer is building");
 				roleBuilder.run(creep);
 			}
 		} else {
