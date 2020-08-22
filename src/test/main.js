@@ -21,9 +21,19 @@ module.exports.loop = function () {
 		filter: (s) => s.structureType == STRUCTURE_TOWER,
 	});
 	for (let tower of towers) {
-		var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-		if (target != undefined) {
-			tower.attack(target);
+		var closestDamagedStructure = tower.pos.findClosestByRange(
+			FIND_STRUCTURES,
+			{
+				filter: (structure) => structure.hits < structure.hitsMax,
+			}
+		);
+		if (closestDamagedStructure) {
+			tower.repair(closestDamagedStructure);
+		}
+
+		var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+		if (closestHostile) {
+			tower.attack(closestHostile);
 		}
 	}
 
